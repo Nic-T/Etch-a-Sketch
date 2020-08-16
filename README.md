@@ -1,0 +1,1 @@
+Another assignment for the odin project, in which i must build simple elements only using JS DOM manipluation
