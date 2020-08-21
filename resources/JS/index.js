@@ -1,38 +1,50 @@
-let x=16;
+let grid= document.getElementById("container");
+document.getElementById("resize").addEventListener("click",resizeGrid);
+document.getElementById("reset").addEventListener("click",resetGrid);
+createGrid(16)
 
-let value="auto"
+function deleteCells(){
+    while(grid.firstChild){
+        grid.removeChild(grid.firstChild);
+    }
+}
 
-let newValue="";
+function createGrid(x){
+    grid.style.gridTemplateColumns=`repeat(${x}, 1fr)`;
+    
+    cells= new Array()
+    for(i=1;i<=x*x;i++){
 
-for(i=1;i<=x;i++){
+        cells[i]=document.createElement('div');
+        cells[i].classList.add("cell")
+        grid.appendChild(cells[i]);
 
-    newValue=newValue.concat(" ",value);
+    }
+    cells.forEach(cell =>{
+        cell.addEventListener("mouseover",()=>{
+            cell.classList.add("colored")
+        } )
+    })
 
 }
 
-console.log(newValue);
-
-
-
-
-
-let grid = document.querySelector("#container");
-
-grid.style.gridTemplateColumns=newValue;
-
-
-let cells = new Array()
-
-for(i=1;i<=x*x;i++){
-
-    cells[i]=document.createElement('div');
-    cells[i].classList.add("cell")
-    grid.appendChild(cells[i]);
-    cells[i].addEventListener('mouseover', (cells) =>{
-
-        cells.target.style.backgroundColor="blue";
-
-
-    } )
+function resizeGrid(){
+    deleteCells()
+    x= prompt("Grid Size");
+    createGrid(x);
 }
+
+function resetGrid(){
+
+    cells.forEach(cell => {
+        if(cell.classList.contains("colored")){
+            cell.classList.remove("colored")
+        }
+            
+    });
+
+}
+
+
+
 
